@@ -16,3 +16,7 @@ Starting Tier
 
 
 Novice Tear
+
+S(hrek) Tier
+
+• Implement a simultaneous two-player mode. In this mode there are two rockets at the same time, each with its own (key) controls, each capable of independent firing. (30)
