@@ -52,6 +52,9 @@ class Play extends Phaser.Scene {
         // Get highest score. Default is 0
         this.highScore = parseInt(localStorage.getItem("score")) || 0;
 
+        // Play music
+        this.sound.play('sfx_music');
+
         // Display score
         let scoreConfig = {
             fontFamily: 'Courier',
@@ -161,7 +164,7 @@ class Play extends Phaser.Scene {
         {
             this.highScore = this.p1Score;
             localStorage.setItem("score", this.highScore);
-            this.best.text = "Bests: " + this.highScore;
+            this.best.text = "Best: " + this.highScore;
         }
 
         this.sound.play('sfx_explosion');
