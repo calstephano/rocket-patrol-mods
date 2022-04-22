@@ -52,8 +52,10 @@ class Play extends Phaser.Scene {
         // Get highest score. Default is 0
         this.highScore = parseInt(localStorage.getItem("score")) || 0;
 
-        // Play music
-        this.sound.play('sfx_music');
+        // Play and loop music
+        backgroundMusic = game.add.audio('sfx_music');
+        backgroundMusic.loop = true;
+        backgroundMusic.play();
 
         // Display score
         let scoreConfig = {
