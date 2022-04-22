@@ -159,9 +159,9 @@ class Play extends Phaser.Scene {
         // Update high score
         if (this.p1Score > this.highScore)
         {
-            this.HighScore = this.p1Score;
+            this.highScore = this.p1Score;
             localStorage.setItem("score", this.highScore);
-            this.best.text = "Best: " + this.highScore;
+            this.best.text = "Bests: " + this.highScore;
         }
 
         this.sound.play('sfx_explosion');
