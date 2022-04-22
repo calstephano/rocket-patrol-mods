@@ -49,10 +49,13 @@ class Play extends Phaser.Scene {
         // Initialize score
         this.p1Score = 0;
 
+        // Get highest score. Default is 0
+        this.highScore = parseInt(localStorage.getItem("score")) || 0;
+
         // Display score
         let scoreConfig = {
             fontFamily: 'Courier',
-            fontSize: '28px',
+            fontSize: '18px',
             backgroundColor: '#F3B141',
             color: '#843605',
             align: 'right',
@@ -62,8 +65,22 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+        this.scoreLeft = this.add.text
+        (
+            borderUISize + borderPadding,
+            borderUISize + borderPadding*2,
+            this.p1Score, 
+            scoreConfig
+            );
 
+        this.best = this.add.text
+        (
+            225,
+            54,
+            "Best: " + this.highScore,
+            scoreConfig
+        );
+        
         // GAME OVER flag
         this.gameOver = false;
 
@@ -137,7 +154,15 @@ class Play extends Phaser.Scene {
 
         // Score add and repaint
         this.p1Score += ship.points;
-        this.scoreLeft.text = this.p1Score; 
+        this.scoreLeft.text = this.p1Score;
+        
+        // Update high score
+        if (this.p1Score > this.highScore)
+        {
+            this.HighScore = this.p1Score;
+            localStorage.setItem("score", this.highScore);
+            this.best.text = "Best: " + this.highScore;
+        }
 
         this.sound.play('sfx_explosion');
       }
