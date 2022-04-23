@@ -15,4 +15,6 @@ Mods (total 100 pts):
 
 • Display the time remaining (in seconds) on the screen (10)
 
+• Create new artwork for all of the in-game assets (rocket, spaceships, explosion) (20) 
+
 • Implement a simultaneous two-player mode. In this mode there are two rockets at the same time, each with its own (key) controls, each capable of independent firing. (30)
