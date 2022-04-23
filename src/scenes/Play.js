@@ -53,47 +53,59 @@ class Play extends Phaser.Scene {
         this.highScore = parseInt(localStorage.getItem("score")) || 0;
 
         // Play and loop music
-        backgroundMusic = game.add.audio('sfx_music');
-        backgroundMusic.loop = true;
-        backgroundMusic.play();
+        // const backgroundMusic = this.add.audio('sfx_music', 1, 1, true);
+        // backgroundMusic.play();
 
         // Display score
-        let scoreConfig = {
+        let textConfig = {
             fontFamily: 'Courier',
             fontSize: '18px',
             backgroundColor: '#F3B141',
             color: '#843605',
-            align: 'right',
+            align: 'center',
             padding: {
                 top: 5,
                 bottom: 5,
             },
             fixedWidth: 100
         }
+        
         this.scoreLeft = this.add.text
         (
             borderUISize + borderPadding,
             borderUISize + borderPadding*2,
             this.p1Score, 
-            scoreConfig
+            textConfig
             );
 
         this.best = this.add.text
         (
             225,
-            54,
+            borderUISize + borderPadding*2,
             "Best: " + this.highScore,
-            scoreConfig
+            textConfig
         );
+
+        // Timer
+        this.gameClock = game.settings.gameTimer;
+
+        this.timeLeft = this.add.text
+        (
+            400,
+            borderUISize + borderPadding*2,
+            this.timeFormat(this.gameClock),
+            textConfig
+        );
+
         
         // GAME OVER flag
         this.gameOver = false;
 
         // 60-second play clock
-        scoreConfig.fixedWidth = 0;
+        textConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', scoreConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', textConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', textConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
     }
@@ -171,4 +183,14 @@ class Play extends Phaser.Scene {
 
         this.sound.play('sfx_explosion');
       }
+
+    // Helper function to format time  
+    timeFormat(ms)                      // Take in milliseconds
+    {
+        let s = ms/1000;                // Find seconds
+        let min = Math.floor(s/60);     // Find minutes
+        let seconds = s%60;             // Seconds 
+        seconds = seconds.toString().padStart(2, "0");
+        return `${min}:${seconds}`;
+    }
 }
