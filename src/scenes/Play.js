@@ -6,8 +6,10 @@ class Play extends Phaser.Scene {
     preload() {
         // Load images/tile sprites
         this.load.image('rocket', './assets/rocket.png');
+        this.load.image('border', './assets/border.png');
         this.load.image('spaceship', './assets/spaceship.png');
         this.load.image('starfield', './assets/starfield.png');
+        this.load.image('starfield', './assets/meteor.png');
         // Load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
     }
@@ -19,11 +21,8 @@ class Play extends Phaser.Scene {
         // Green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
         
-        // White borders
-        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0 ,0);
-        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0 ,0);
-        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
-        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
+        // New border
+        this.border = this.add.tileSprite(0, 0, 640, 480, 'border').setOrigin(0, 0);
 
         // add Rockets
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
@@ -86,7 +85,7 @@ class Play extends Phaser.Scene {
         this.scoreLeft = this.add.text
         (
             borderUISize + borderPadding,
-            borderUISize + borderPadding*2,
+            borderUISize + borderPadding*2.5,
             this.p1Score, 
             textConfig
             );
@@ -94,7 +93,7 @@ class Play extends Phaser.Scene {
         this.scoreRight = this.add.text
         (
             497,
-            borderUISize + borderPadding*2,
+            borderUISize + borderPadding*2.5,
             this.p2Score, 
             textConfig
             );
@@ -102,7 +101,7 @@ class Play extends Phaser.Scene {
         this.best = this.add.text
         (
             215,
-            borderUISize + borderPadding*2,
+            borderUISize + borderPadding*2.5,
             "Best: " + this.highScore,
             textConfig
         );
@@ -113,7 +112,7 @@ class Play extends Phaser.Scene {
         this.timeLeft = this.add.text
         (
             325,
-            borderUISize + borderPadding*2,
+            borderUISize + borderPadding*2.5,
             this.timeFormat(this.gameClock),
             textConfig
         );
