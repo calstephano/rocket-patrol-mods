@@ -97,6 +97,20 @@ class Play extends Phaser.Scene {
             textConfig
         );
 
+        this.timedEvent = this.time.addEvent
+        (
+            { 
+                delay: 1000, 
+                callback: () =>
+                {
+                    this.gameClock -= 1000; 
+                    this.timeLeft.text = this.timeFormat(this.gameClock);
+                },
+                callbackScope: this, 
+                loop: true 
+            }
+        );
+
         
         // GAME OVER flag
         this.gameOver = false;
