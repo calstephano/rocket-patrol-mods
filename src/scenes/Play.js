@@ -163,12 +163,13 @@ class Play extends Phaser.Scene {
 
         if(!this.gameOver) {
             this.p1Rocket.update();             // update p1
-             this.ship01.update();               // update spaceship (x3)
+            this.p2Rocket.update();             // update p1
+            this.ship01.update();               // update spaceship (x3)
             this.ship02.update();
             this.ship03.update();
         }
 
-        // Check collisions
+        // Check collisions (p1)
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship03);
@@ -181,7 +182,20 @@ class Play extends Phaser.Scene {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
         }
-    }
+
+        // Check collisions (p2)
+        if(this.checkCollision(this.p2Rocket, this.ship03)) {
+            this.p2Rocket.reset();
+            this.shipExplode2(this.ship03);
+        }
+        if (this.checkCollision(this.p2Rocket, this.ship02)) {
+            this.p2Rocket.reset();
+            this.shipExplode2(this.ship02);
+        }
+        if (this.checkCollision(this.p2Rocket, this.ship01)) {
+            this.p2Rocket.reset();
+            this.shipExplode2(this.ship01);
+        }    }
 
     checkCollision(rocket, ship) {
         // Simple AABB checking
@@ -221,7 +235,35 @@ class Play extends Phaser.Scene {
         }
 
         this.sound.play('sfx_explosion');
-      }
+    }
+
+    shipExplode2(ship) {
+        // Temporarily hide ship
+        ship.alpha = 0;  
+
+        // Create explosion sprite at ship's position
+        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
+        boom.anims.play('explode');             // play explode animation
+        boom.on('animationcomplete', () => {    // callback after anim completes
+            ship.reset();                         // reset ship position
+            ship.alpha = 1;                       // make ship visible again
+            boom.destroy();                       // remove explosion sprite
+        });
+
+        // Score add and repaint
+        this.p2Score += ship.points;
+        this.scoreLeft.text = this.p2Score;
+        
+        // Update high score
+        if (this.p2Score > this.highScore)
+        {
+            this.highScore = this.p2Score;
+            localStorage.setItem("score", this.highScore);
+            this.best.text = "Best: " + this.highScore;
+        }
+
+        this.sound.play('sfx_explosion');
+    }
 
     // Helper function to format time  
     timeFormat(ms)                      // Take in milliseconds
