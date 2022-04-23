@@ -23,7 +23,7 @@ let keyR, keyUP, keyLEFT, keyRIGHT, keyW, keyA, keyD;
     • Replace the UI borders with new artwork (10)
     • Create a new title screen (e.g., new artwork, typography, layout) (10)
     • Implement parallax scrolling (10)
-    • 
+    • Create new artwork for all of the in-game assets (rocket, spaceships, explosion) (20)
     • Implement a simultaneous two-player mode. In this mode there are two rockets at the same time, 
       each with its own (key) controls, each capable of independent firing. (30)
 */
