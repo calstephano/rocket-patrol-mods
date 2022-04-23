@@ -9,7 +9,7 @@ class Play extends Phaser.Scene {
         this.load.image('border', './assets/border.png');
         this.load.image('spaceship', './assets/spaceship.png');
         this.load.image('starfield', './assets/starfield.png');
-        this.load.image('starfield', './assets/meteor.png');
+        this.load.image('starfield2', './assets/meteor.png');
         // Load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
     }
@@ -17,6 +17,7 @@ class Play extends Phaser.Scene {
     create() {
         // Place tile sprite
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
+        this.starfield2 = this.add.tileSprite(0, 0, 640, 480, 'starfield2').setOrigin(0, 0);
 
         // Green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
@@ -159,6 +160,7 @@ class Play extends Phaser.Scene {
         }
 
         this.starfield.tilePositionX -= 4;  // update tile sprite
+        this.starfield2.tilePositionX -= 2; // moves at slower speed
 
         if(!this.gameOver) {
             this.p1Rocket.update();             // update p1
@@ -251,7 +253,7 @@ class Play extends Phaser.Scene {
 
         // Score add and repaint
         this.p2Score += ship.points;
-        this.scoreLeft.text = this.p2Score;
+        this.scoreRight.text = this.p2Score;
         
         // Update high score
         if (this.p2Score > this.highScore)
