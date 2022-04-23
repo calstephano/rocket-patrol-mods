@@ -5,17 +5,17 @@ This repository contains the files for the modded Rocket Patrol assignment.
 Play the game:
 
 
-Mods (total 100 pts):
+Mods (total 105/100 pts):
 
 • Track a high score that persists across scenes and display it in the UI (5)
 
 • Add your own (copyright-free) background music to the Play scene (5)
-
-• Implement the speed increase that happens after 30 seconds in the original game (5)
   
 • Allow the player to control the Rocket after it's fired (5)
 
 • Display the time remaining (in seconds) on the screen (10)
+
+• Replace the UI borders with new artwork (10)
 
 • Create a new title screen (e.g., new artwork, typography, layout) (10)
 
