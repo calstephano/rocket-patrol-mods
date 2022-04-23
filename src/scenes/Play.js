@@ -53,8 +53,9 @@ class Play extends Phaser.Scene {
         this.highScore = parseInt(localStorage.getItem("score")) || 0;
 
         // Play and loop music
-        // const backgroundMusic = this.add.audio('sfx_music', 1, 1, true);
-        // backgroundMusic.play();
+        this.playMusic = this.sound.add('sfx_music');
+        this.playMusic.setLoop(true); 
+        this.playMusic.play();
 
         // Display score
         let textConfig = {
@@ -125,6 +126,12 @@ class Play extends Phaser.Scene {
     }
 
     update() {
+        // Stop music from overlapping
+        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.playMusic.stop();
+            this.scene.restart();
+        }
+        
         // Check key input for restart / menu
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart();
