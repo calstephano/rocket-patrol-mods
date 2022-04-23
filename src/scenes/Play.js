@@ -126,18 +126,14 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        // Stop music from overlapping
-        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
-            this.playMusic.stop();
-            this.scene.restart();
-        }
-        
         // Check key input for restart / menu
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.playMusic.stop();  // Stop music from overlapping
             this.scene.restart();
         }
 
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            this.playMusic.stop();
             this.scene.start("menuScene");
         }
 
