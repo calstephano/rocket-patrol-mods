@@ -14,6 +14,8 @@ Mods (total 105/100 pts):
 • Create new artwork for all of the in-game assets (rocket, spaceships, explosion) (20)
 • Implement a simultaneous two-player mode. In this mode there are two rockets at the same time, 
       each with its own (key) controls, each capable of independent firing. (30)
+
+Music: Space Goddess by Arulo
 */
 
 let config = {
