@@ -7,6 +7,8 @@ Play the game:
 
 Mods (total 100 pts):
 
+• Track a high score that persists across scenes and display it in the UI (5)
+
 • Add your own (copyright-free) background music to the Play scene (5)
   
 • Allow the player to control the Rocket after it's fired (5)
