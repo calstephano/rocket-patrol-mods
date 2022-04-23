@@ -2,7 +2,7 @@
 This repository contains the files for the modded Rocket Patrol assignment.
 
 
-Play the game:
+Play the game: https://calstephano.github.io/rocket-patrol-mods/
 
 
 Mods (total 105/100 pts):
