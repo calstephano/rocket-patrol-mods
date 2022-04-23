@@ -25,8 +25,9 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
 
-        // add Rocket (p1)
+        // add Rockets
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
+        this.p2Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
 
         // add Spaceships (x3)
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
@@ -34,10 +35,20 @@ class Play extends Phaser.Scene {
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
 
         // Define keys
-        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+
+        this.p1Rocket.fireKey = keyUP;
+        this.p1Rocket.leftKey = keyLEFT;
+        this.p1Rocket.rightKey = keyRIGHT;
+        this.p2Rocket.fireKey = keyW;
+        this.p2Rocket.leftKey = keyA;
+        this.p2Rocket.rightKey = keyD;
 
         // Animation config
         this.anims.create({
@@ -46,8 +57,9 @@ class Play extends Phaser.Scene {
             frameRate: 30
         });
 
-        // Initialize score
+        // Initialize scores
         this.p1Score = 0;
+        this.p2Score = 0;
 
         // Get highest score. Default is 0
         this.highScore = parseInt(localStorage.getItem("score")) || 0;
@@ -79,9 +91,17 @@ class Play extends Phaser.Scene {
             textConfig
             );
 
+        this.scoreRight = this.add.text
+        (
+            497,
+            borderUISize + borderPadding*2,
+            this.p2Score, 
+            textConfig
+            );
+
         this.best = this.add.text
         (
-            225,
+            215,
             borderUISize + borderPadding*2,
             "Best: " + this.highScore,
             textConfig
@@ -92,7 +112,7 @@ class Play extends Phaser.Scene {
 
         this.timeLeft = this.add.text
         (
-            400,
+            325,
             borderUISize + borderPadding*2,
             this.timeFormat(this.gameClock),
             textConfig
@@ -124,6 +144,7 @@ class Play extends Phaser.Scene {
             this.gameOver = true;
             this.timer.paused = true;
         }, null, this);
+
     }
 
     update() {
