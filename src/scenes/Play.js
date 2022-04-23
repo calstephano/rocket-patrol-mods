@@ -97,8 +97,8 @@ class Play extends Phaser.Scene {
             this.timeFormat(this.gameClock),
             textConfig
         );
-
-        this.timedEvent = this.time.addEvent
+            
+        this.timer = this.time.addEvent
         (
             { 
                 delay: 1000, 
@@ -122,6 +122,7 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', textConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', textConfig).setOrigin(0.5);
             this.gameOver = true;
+            this.timer.paused = true;
         }, null, this);
     }
 
